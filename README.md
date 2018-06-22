@@ -1,7 +1,3 @@
-![ga](http://mobbook.generalassemb.ly/ga_cog.png)
-
-# WDIR-GIZMO
-
 ---
 Title: PokeAsquare Game <br>
 Type: lesson<br>
