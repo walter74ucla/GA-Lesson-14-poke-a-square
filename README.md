@@ -287,9 +287,9 @@ let round = 1;
 
 
 - So whats some add on we can make up and do together?
-
 - Make the squares lose transparency during each round so you have to click faster.
 - Make a Modal to gather the players name at the beginning of the game, and leave them a greeting in the header
+- Can you refactor your code so you only have one event listener on all the squares, instead of in the loop
 - Style it make it look nice
 - Make a sound when you click a wrong one or a right one.
 - have a modal pop up at the begining of a ready so the user knows how to continue
