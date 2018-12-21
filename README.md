@@ -1,9 +1,8 @@
 ---
-Title: PokeAsquare Game <br>
-Type: lesson<br>
-Creator: Jim Haff for WDI-GiZMO<br>
-Competencies: jQuery, Javascript, DOM <br>
-
+Title: PokeAsquare Game 
+Type: lesson
+Creator: Jim Haff for WDI-GiZMO
+Competencies: jQuery, Javascript, DOM
 ---
 
 ### Poke A Square
