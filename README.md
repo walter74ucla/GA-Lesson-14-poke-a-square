@@ -31,7 +31,7 @@ Competencies: jQuery, Javascript, DOM
 
 - the first step we are going to tackle is the activating the begin button and load the squares
 
-```
+```javascript
   $('button').on('click', () => {
 
    console.log('this is working')
@@ -71,58 +71,57 @@ Competencies: jQuery, Javascript, DOM
 
 
 ```javascript
-  const applyRandomColor = (square) => {
-    const randNum = Math.floor(Math.random() * 3) + 1
+const applyRandomColor = (square) => {
+  const randNum = Math.floor(Math.random() * 3) + 1
 
-      if(randNum === 1) {
-        square.css('background-color', 'red')
+    if(randNum === 1) {
+      square.css('background-color', 'red')
 
-      } else if(randNum === 2){
-        square.css('background-color', 'blue')
+    } else if(randNum === 2){
+      square.css('background-color', 'blue')
 
-      }
-      else {
-        square.css('background-color', 'green')
+    }
+    else {
+      square.css('background-color', 'green')
 
-      }
-  }
-
+    }
+}
 ```
 
 -  Where do we use that function?
 
 ```javascript
-  const createSquares = (numberOfSquares) => {
-    for (let i = 0; i < numberOfSquares; i++){
-        const square = $('<div/>');
+const createSquares = (numberOfSquares) => {
+  for (let i = 0; i < numberOfSquares; i++){
+      const square = $('<div/>');
 
-          applyRandomColor(square);
+        applyRandomColor(square);
 
-        $('.squares').append(square);
-    }
+      $('.squares').append(square);
   }
+}
 ```
 
 -  Now that we have colored squares, lets make them clickable, and hidden when we click on them.  Give it a try!
 
 
 ```javascript
-  const createSquares = (numberOfSquares) => {
-    for (let i = 0; i < numberOfSquares; i++){
-        const square = $('<div/>')
+const createSquares = (numberOfSquares) => {
+  for (let i = 0; i < numberOfSquares; i++){
+      const square = $('<div/>')
 
-        applyRandomColor(square);
+      applyRandomColor(square);
 
-        $('.squares').append(square);
-     }
-    $('.squares').on('click', handlePoke);
-  }
-  
-  
- const handlePoke = (e) => {
-      console.log(e.target)
-      $(e.target).css('opacity', 0);
-    };
+      $('.squares').append(square);
+   }
+  $('.squares').on('click', handlePoke);
+}
+
+
+const handlePoke = (e) => {
+    console.log(e.target)
+    $(e.target).css('opacity', 0);
+  };
 ```
 - we can make this simple by using jQuery's css method to make the opacity go to zero. 
 
@@ -130,12 +129,11 @@ Competencies: jQuery, Javascript, DOM
 -  we can use the css method again like this!
 
 ```javascript
- const handlePoke = (e) => {
-      console.log(e.target)
-      $(e.target).css('opacity', 0);
-      const color = $(e.currentTarget).css('background-color');
-    };
- 
+const handlePoke = (e) => {
+    console.log(e.target)
+    $(e.target).css('opacity', 0);
+    const color = $(e.currentTarget).css('background-color');
+  };
 ```
 
 - `console.log(color)` it should return something like this `'rgb(0, 0, 255)'`
@@ -150,20 +148,20 @@ Competencies: jQuery, Javascript, DOM
 
 -  One way to do it is like the following
 ```javascript
-  const checkValidPoke = (square) => {
-    console.log(square, typeof square)
-    const colors = square.substring(4, square.length-1).split(" ");
-    const blue = parseInt(colors[2])
+const checkValidPoke = (square) => {
+  console.log(square, typeof square)
+  const colors = square.substring(4, square.length-1).split(" ");
+  const blue = parseInt(colors[2])
 
-    if(blue === 255){
-      score++;
-      console.log(score)
-    } else {
-      score--;
-      console.log(score)
-    }
-
+  if(blue === 255){
+    score++;
+    console.log(score)
+  } else {
+    score--;
+    console.log(score)
   }
+
+}
 ```
   - substring lets us take out part of a string.
   - then we are splitting the string by the places so we can get an array number of strings then we are parsing the second index item in the newly created array because we only care about the blue value in rgb
@@ -182,21 +180,21 @@ const handlePoke = (e) => {
 - Now lets update the dom with the value of score, give it a try! (Hint: you can do it in the function you just made)
 
 ```
-  const checkValidPoke = (square) => {
-    console.log(square, typeof square)
-    const colors = square.substring(4, square.length-1).split(" ");
-    const blue = parseInt(colors[2])
+const checkValidPoke = (square) => {
+  console.log(square, typeof square)
+  const colors = square.substring(4, square.length-1).split(" ");
+  const blue = parseInt(colors[2])
 
-    if(blue === 255){
-      console.log('this is passign')
-      score++;
-      $('h1').text('scoreboard: ' + score)
-    } else {
-      score--;
-      $('h1').text('scoreboard: ' + score)
-    }
-
+  if(blue === 255){
+    console.log('this is passign')
+    score++;
+    $('h1').text('scoreboard: ' + score)
+  } else {
+    score--;
+    $('h1').text('scoreboard: ' + score)
   }
+
+}
 ```
 
 - We got alot of the gameplay working now lets set up our timer
@@ -207,25 +205,23 @@ const handlePoke = (e) => {
 let score = 0;
 let time = 30;
 let round = 1;
-
 ```
 
 - now try to write a function called `setTimer` thats starts an interval and countsdown to 0 and when it reaches 0 increase the round
 
 ```
-  const setTimer = () => {
-    const timer = setInterval(()=>{
-      time--
-      if(time === 0){
-        clearInterval(timer)
-        round++;
-      }
+const setTimer = () => {
+  const timer = setInterval(()=>{
+    time--
+    if(time === 0){
+      clearInterval(timer)
+      round++;
+    }
 
-      updateTime();
+    updateTime();
 
-    }, 1000)
-  }
-
+  }, 1000)
+}
 ```
 
 - clearInterval stops the interval saved in the variable `timer`.  The second arguement is the time in ms that the function in the first argument will run. 
