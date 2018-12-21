@@ -26,8 +26,6 @@ Competencies: jQuery, Javascript, DOM <br>
 ### setup 
 
 - open up the `pokeAsquare` folder in student examples, and read over the code
-- set up your window onload function in your js file, and log something to make sure it is connected
-
 
 
 ### Let's begin 
@@ -277,6 +275,7 @@ let round = 1;
 
 -  This has meant our requirements or in other words our MVP (minimum viable product)
 
+___
 
 - So whats some add on we can make up and do together?
 - Make the squares lose transparency during each round so you have to click faster.
