@@ -51,7 +51,7 @@ Competencies: jQuery, Javascript, DOM <br>
 
 - Now we need to write a function named (createSquares) that sets up our squares, Try to write a function that takes a parameter `numberOfSquares` that will create an arbitary number of divs depending on the parameter and attach them to the squares class from the html. 
 
-```
+```javascript
   const createSquares = (numberOfSquares) => {
     for (let i = 0; i < NumberOfSquares; i++){
         const square = $('<div/>')
@@ -62,7 +62,7 @@ Competencies: jQuery, Javascript, DOM <br>
 
 - lets call createSquares in the start button function
 
-```
+```javascript
   $('button').on('click', () => {
 
     createSquares();
@@ -73,7 +73,7 @@ Competencies: jQuery, Javascript, DOM <br>
 - Now we have a bunch of blue squares, but we want our squares to have a random, red, blue, or green color try to write a function to make that happen.
 
 
-```
+```javascript
   const applyRandomColor = (square) => {
     const randNum = Math.floor(Math.random() * 3) + 1
 
@@ -94,7 +94,7 @@ Competencies: jQuery, Javascript, DOM <br>
 
 -  Where do we use that function?
 
-```
+```javascript
   const createSquares = (numberOfSquares) => {
     for (let i = 0; i < numberOfSquares; i++){
         const square = $('<div/>');
@@ -109,40 +109,36 @@ Competencies: jQuery, Javascript, DOM <br>
 -  Now that we have colored squares, lets make them clickable, and hidden when we click on them.  Give it a try!
 
 
-```
+```javascript
   const createSquares = (numberOfSquares) => {
     for (let i = 0; i < numberOfSquares; i++){
-        const square = $('<div/>').on('click', (e) => {
+        const square = $('<div/>')
 
-        $(e.currentTarget).css('opacity', 0);
-      })
+        applyRandomColor(square);
 
-      applyRandomColor(square);
-
-      $('.squares').append(square);
-    }
+        $('.squares').append(square);
+     }
+    $('.squares').on('click', handlePoke);
   }
+  
+  
+ const handlePoke = (e) => {
+      console.log(e.target)
+      $(e.target).css('opacity', 0);
+    };
 ```
 - we can make this simple by using jQuery's css method to make the opacity go to zero. 
 
 -  Okay now how do we know if we are clicking on a blue square or not?
 -  we can use the css method again like this!
 
-```
-  const createSquares = (numberOfSquares) => {
-    for (let i = 0; i < numberOfSquares; i++){
-        const square = $('<div/>').on('click', (e) => {
-        
-        const color = $(e.currentTarget).css('background-color');
-        
-        $(e.currentTarget).css('opacity', 0);
-      })
-
-      applyRandomColor(square);
-
-      $('.squares').append(square);
-    }
-  }
+```javascript
+ const handlePoke = (e) => {
+      console.log(e.target)
+      $(e.target).css('opacity', 0);
+      const color = $(e.currentTarget).css('background-color');
+    };
+ 
 ```
 
 - `console.log(color)` it should return something like this `'rgb(0, 0, 255)'`
@@ -151,12 +147,12 @@ Competencies: jQuery, Javascript, DOM <br>
 
 - create your score variable at the top like the following: 
 
-```
+```javascript
    let score = 0;
 ```
 
 -  One way to do it is like the following
-```
+```javascript
   const checkValidPoke = (square) => {
     console.log(square, typeof square)
     const colors = square.substring(4, square.length-1).split(" ");
@@ -177,25 +173,14 @@ Competencies: jQuery, Javascript, DOM <br>
 
   - now where do we use this? 
 
+```javascript
+const handlePoke = (e) => {
+      console.log(e.target)
+      $(e.target).css('opacity', 0);
+      const color = $(e.currentTarget).css('background-color');
+      checkValidPoke(color)
+   };
 ```
-  const createSquares = (numberOfSquares) => {
-    for (let i = 0; i < numberOfSquares; i++){
-        const square = $('<div/>').on('click', (e) => {
-        
-        const color = $(e.currentTarget).css('background-color');
-        checkValidPoke(color)
-        $(e.currentTarget).css('opacity', 0);
-      })
-
-      applyRandomColor(square);
-
-      $('.squares').append(square);
-    }
-  }
-
-```
-
-- We need to do it in the onclick of each square
 
 - Now lets update the dom with the value of score, give it a try! (Hint: you can do it in the function you just made)
 
@@ -296,7 +281,7 @@ let round = 1;
 - So whats some add on we can make up and do together?
 - Make the squares lose transparency during each round so you have to click faster.
 - Make a Modal to gather the players name at the beginning of the game, and leave them a greeting in the header
-- Can you refactor your code so you only have one event listener on all the squares, instead of in the loop
+- Can you refactor your code to encapsulate your methods and variables in an object
 - Style it make it look nice
 - Make a sound when you click a wrong one or a right one.
 - have a modal pop up at the begining of a ready so the user knows how to continue
