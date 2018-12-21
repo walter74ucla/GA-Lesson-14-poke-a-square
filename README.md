@@ -147,6 +147,7 @@ const handlePoke = (e) => {
 ```
 
 -  One way to do it is like the following
+
 ```javascript
 const checkValidPoke = (square) => {
   console.log(square, typeof square)
@@ -163,6 +164,7 @@ const checkValidPoke = (square) => {
 
 }
 ```
+
   - substring lets us take out part of a string.
   - then we are splitting the string by the places so we can get an array number of strings then we are parsing the second index item in the newly created array because we only care about the blue value in rgb
 
@@ -179,7 +181,7 @@ const handlePoke = (e) => {
 
 - Now lets update the dom with the value of score, give it a try! (Hint: you can do it in the function you just made)
 
-```
+```javascript
 const checkValidPoke = (square) => {
   console.log(square, typeof square)
   const colors = square.substring(4, square.length-1).split(" ");
@@ -201,7 +203,7 @@ const checkValidPoke = (square) => {
 
 - Set up some variables by the score variable like the following 
 
-```
+```javascript
 let score = 0;
 let time = 30;
 let round = 1;
@@ -209,7 +211,7 @@ let round = 1;
 
 - now try to write a function called `setTimer` thats starts an interval and countsdown to 0 and when it reaches 0 increase the round
 
-```
+```javascript
 const setTimer = () => {
   const timer = setInterval(()=>{
     time--
@@ -230,7 +232,7 @@ const setTimer = () => {
 - Now write a function called setupRound, that will change the round number on the DOM and set up a new game, if we do this we can just call it in the button so we can reuse that button every round!
 
 
-```
+```javascript
  const setUpRound = () => {
     $('.squares').empty();
     $('#round').text('round: ' + round)
@@ -257,7 +259,7 @@ const setTimer = () => {
 
 - Now lets just call our `setUpRound` function in the button
 
-```
+```javascript
   $('button').on('click', () => {
 
     setTimer();
@@ -271,6 +273,8 @@ const setTimer = () => {
 -  This has meant our requirements or in other words our MVP (minimum viable product)
 
 ___
+
+### Extras
 
 - So whats some add on we can make up and do together?
 - Make the squares lose transparency during each round so you have to click faster.
