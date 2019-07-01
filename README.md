@@ -46,15 +46,18 @@ Competencies: jQuery, Javascript, DOM
 3. git add & commit your code, then you are free to change back to the master branch, were you will be able to pull down the instructors code at anytime.
 
 
-- Now we need to write a function named (createSquares) that sets up our squares, Try to write a function that takes a parameter `numberOfSquares` that will create an arbitary number of divs depending on the parameter and attach them to the squares class from the html. 
+- Now we need to write a method named (createSquares) that sets up our squares, Try to write a function that takes a parameter `numberOfSquares` that will create an arbitary number of divs depending on the parameter and attach them to the squares class from the html. 
 
 ```javascript
-  const createSquares = (numberOfSquares) => {
-    for (let i = 0; i < NumberOfSquares; i++){
-        const square = $('<div/>')
-        $('.squares').append(square)
+  const pokeAsquare = {
+    createSquares(numberOfSquares){
+      for (let i = 0; i < NumberOfSquares; i++){
+          const square = $('<div/>')
+          $('.squares').append(square)
+      }
     }
   }
+
 ```
 
 - lets call createSquares in the start button function
@@ -62,7 +65,7 @@ Competencies: jQuery, Javascript, DOM
 ```javascript
   $('button').on('click', () => {
 
-    createSquares();
+    game.createSquares();
 
   })
 
@@ -71,7 +74,9 @@ Competencies: jQuery, Javascript, DOM
 
 
 ```javascript
-const applyRandomColor = (square) => {
+
+// inside of game object
+applyRandomColor(square) {
   const randNum = Math.floor(Math.random() * 3) + 1
 
     if(randNum === 1) {
@@ -91,11 +96,12 @@ const applyRandomColor = (square) => {
 -  Where do we use that function?
 
 ```javascript
-const createSquares = (numberOfSquares) => {
+//inside of game object
+ createSquares(numberOfSquares) => {
   for (let i = 0; i < numberOfSquares; i++){
       const square = $('<div/>');
 
-        applyRandomColor(square);
+        this.applyRandomColor(square);
 
       $('.squares').append(square);
   }
@@ -106,19 +112,21 @@ const createSquares = (numberOfSquares) => {
 
 
 ```javascript
-const createSquares = (numberOfSquares) => {
+//inside of game object
+createSquares(numberOfSquares){
   for (let i = 0; i < numberOfSquares; i++){
       const square = $('<div/>')
 
-      applyRandomColor(square);
+      this.applyRandomColor(square);
 
       $('.squares').append(square);
    }
-  $('.squares').on('click', handlePoke);
+  $('.squares').on('click', this.handlePoke);
 }
 
 
-const handlePoke = (e) => {
+// inside of game object
+handlePoke(e){
     console.log(e.target)
     $(e.target).css('opacity', 0);
   };
@@ -129,7 +137,7 @@ const handlePoke = (e) => {
 -  we can use the css method again like this!
 
 ```javascript
-const handlePoke = (e) => {
+handlePoke(e) {
     console.log(e.target)
     $(e.target).css('opacity', 0);
     const color = $(e.currentTarget).css('background-color');
@@ -140,25 +148,29 @@ const handlePoke = (e) => {
 
 - So how can we use that, lets write a function that takes that string and if it is blue lets update a global `score` variable.
 
-- create your score variable at the top like the following: 
+- create your score property on your game object: 
 
 ```javascript
-   let score = 0;
+  const game = {
+    score: 0,
+    //rest of methods
+  };
 ```
 
 -  One way to do it is like the following
 
 ```javascript
-const checkValidPoke = (square) => {
+// inside game object
+checkValidPoke(square){
   console.log(square, typeof square)
   const colors = square.substring(4, square.length-1).split(" ");
   const blue = parseInt(colors[2])
 
   if(blue === 255){
-    score++;
+    thisscore++;
     console.log(score)
   } else {
-    score--;
+    this.score--;
     console.log(score)
   }
 
@@ -171,29 +183,31 @@ const checkValidPoke = (square) => {
   - now where do we use this? 
 
 ```javascript
-const handlePoke = (e) => {
+// inside game object
+hanldePoke(e){
       console.log(e.target)
       $(e.target).css('opacity', 0);
       const color = $(e.currentTarget).css('background-color');
-      checkValidPoke(color)
+      this.checkValidPoke(color)
    };
 ```
 
 - Now lets update the dom with the value of score, give it a try! (Hint: you can do it in the function you just made)
 
 ```javascript
-const checkValidPoke = (square) => {
+// inside game object
+checkValidPoke(square){
   console.log(square, typeof square)
   const colors = square.substring(4, square.length-1).split(" ");
   const blue = parseInt(colors[2])
 
   if(blue === 255){
     console.log('this is passign')
-    score++;
-    $('h1').text('scoreboard: ' + score)
+    this.score++;
+    $('h1').text('scoreboard: ' + this.score)
   } else {
-    score--;
-    $('h1').text('scoreboard: ' + score)
+    this.score--;
+    $('h1').text('scoreboard: ' + this.score)
   }
 
 }
@@ -201,18 +215,25 @@ const checkValidPoke = (square) => {
 
 - We got alot of the gameplay working now lets set up our timer
 
-- Set up some variables by the score variable like the following 
+- Set up some properties by the score property like the following 
 
 ```javascript
 let score = 0;
 let time = 30;
 let round = 1;
+
+const game = {
+  score: 0,
+  time: 30,
+  round: 1
+  // rest of game property
+}
 ```
 
 - now try to write a function called `setTimer` thats starts an interval and countsdown to 0 and when it reaches 0 increase the round
 
 ```javascript
-const setTimer = () => {
+setTimer(){
   const timer = setInterval(()=>{
     time--
     if(time === 0){
@@ -233,21 +254,21 @@ const setTimer = () => {
 
 
 ```javascript
- const setUpRound = () => {
+setUpRound() {
     $('.squares').empty();
     $('#round').text('round: ' + round)
 
     if(round === 1){
-      createSquares(50);
+      this.createSquares(50);
       time = 30;
     } else if(round === 2){
-      createSquares(100);
+      this.createSquares(100);
       time = 20;
     } else if(round === 3){
-      createSquares(150);
+      this.createSquares(150);
       time = 10;
     } else {
-      createSquares(250);
+      this.createSquares(250);
       time = 10;
     }
 
@@ -262,8 +283,8 @@ const setTimer = () => {
 ```javascript
   $('button').on('click', () => {
 
-    setTimer();
-    setupRound();
+    game.setTimer();
+    game.setupRound();
 
   })
 
