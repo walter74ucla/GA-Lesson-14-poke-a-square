@@ -49,7 +49,7 @@ Competencies: jQuery, Javascript, DOM
 - Now we need to write a method named (createSquares) that sets up our squares, Try to write a function that takes a parameter `numberOfSquares` that will create an arbitary number of divs depending on the parameter and attach them to the squares class from the html. 
 
 ```javascript
-  const pokeAsquare = {
+  const game = {
     createSquares(numberOfSquares){
       for (let i = 0; i < NumberOfSquares; i++){
           const square = $('<div/>')
