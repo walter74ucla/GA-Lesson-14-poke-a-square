@@ -70,7 +70,7 @@ Competencies: jQuery, Javascript, DOM
   })
 
 ```
-- Now we have a bunch of blue squares, but we want our squares to have a random, red, blue, or green color try to write a function to make that happen.
+- Now we have a bunch of blue squares, but we want our squares to have a random, red, blue, or green color try to write a method to make that happen.
 
 
 ```javascript
@@ -121,7 +121,7 @@ createSquares(numberOfSquares){
 
       $('.squares').append(square);
    }
-  $('.squares').on('click', this.handlePoke);
+  $('.squares').on('click', this.handlePoke.bind(this);
 }
 
 
@@ -163,15 +163,14 @@ handlePoke(e) {
 // inside game object
 checkValidPoke(square){
   console.log(square, typeof square)
-  const colors = square.substring(4, square.length-1).split(" ");
-  const blue = parseInt(colors[2])
+  
 
-  if(blue === 255){
-    thisscore++;
-    console.log(score)
+  if(square === 'rgb(0, 0, 255)'){
+    this.score++;
+    console.log(this.score)
   } else {
     this.score--;
-    console.log(score)
+    console.log(this.score)
   }
 
 }
@@ -218,9 +217,6 @@ checkValidPoke(square){
 - Set up some properties by the score property like the following 
 
 ```javascript
-let score = 0;
-let time = 30;
-let round = 1;
 
 const game = {
   score: 0,
@@ -235,13 +231,13 @@ const game = {
 ```javascript
 setTimer(){
   const timer = setInterval(()=>{
-    time--
-    if(time === 0){
+    this.time--
+    if(this.time === 0){
       clearInterval(timer)
-      round++;
+      this.round++;
     }
 
-    updateTime();
+    $('#timer').text(`Time ${this.time}s`)
 
   }, 1000)
 }
@@ -256,20 +252,20 @@ setTimer(){
 ```javascript
 setUpRound() {
     $('.squares').empty();
-    $('#round').text('round: ' + round)
+    $('#round').text('round: ' + this.round)
 
-    if(round === 1){
+    if(this.round === 1){
       this.createSquares(50);
-      time = 30;
-    } else if(round === 2){
+      this.time = 30;
+    } else if(this.round === 2){
       this.createSquares(100);
-      time = 20;
-    } else if(round === 3){
+      this.time = 20;
+    } else if(this.round === 3){
       this.createSquares(150);
-      time = 10;
+      this.time = 10;
     } else {
       this.createSquares(250);
-      time = 10;
+      this.time = 10;
     }
 
  }
